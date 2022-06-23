@@ -1,8 +1,17 @@
 # Titanic EDA Report
-This repo is for the first part of the Portfolio building for Misk Data Science Bootcamp
 
+## Intoduction
+<br>
+The Titanic is one of the most tragic naval disasters in history, where more than 1500 people died. 
+In this report we will be tryng to find relationships between survival rate and the variables present in our data. 
 
-# Data 
+<br>
+
+## Webpage
+
+The Webpage for this project can be found [here]()
+
+## Data 
 <br>
 
 | Variable      | Description |
@@ -15,7 +24,7 @@ This repo is for the first part of the Portfolio building for Misk Data Science 
 
  <br>
  
- # Libraries
+ ## Libraries
  
 - tidyverse
 - ggplot2
