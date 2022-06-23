@@ -1,0 +1,227 @@
+---
+title: "Report"
+author: "Maan Al Neami"
+date: '2022-06-23'
+output: html_document
+knit: (function(input, ...) {
+    rmarkdown::render(
+      input,
+      output_dir = "../"
+    )
+  })
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+
+library(tidyverse)
+library(ggplot2)
+library(janitor)
+library(GGally)
+library(explore)
+library(reactable)
+```
+
+
+
+
+## Introduction 
+
+<br>
+<img src="../../titanic.JPG">
+<br>
+<br>
+
+The Titanic is one of the most tragic naval disasters in history, where more than 1500 people died. 
+In this report we will be tryng to find relationships between survival rate and the variables present in our data.
+
+<br>
+
+
+
+---
+
+
+
+## Data
+
+
+<br>
+
+
+| Variable      | Description |
+| ----------- | ----------- |
+| Class      | A factor representing the class of passenger, can be 1st, 2nd, 3rd or Crew.       |
+| Sex   | A factor representing the sex of passenger, can be male or female.       |
+| Age   | A factor representing the age of passenger, can be child or adult.        |
+| Survived   | A factor showing if the passenger survived or not.        |
+| n   | total number of observations.        |
+
+<br>
+<br>
+
+# Lets load and clean the data first
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+Titanic_df <- as.tibble(Titanic)
+
+# cleaning data
+
+# checking for missing values
+sum(is.na(Titanic_df))
+
+# checking for duplicates
+get_dupes(Titanic_df)
+
+```
+
+<br>
+<br>
+Our dataset doesn't contain any missing values or duplicates so we don't need to do further cleaning.
+
+<br>
+
+# Interactive table
+
+```{r, message=FALSE, warning=FALSE}
+reactable(Titanic_df)
+```
+
+
+<br>
+<br>
+
+
+
+---
+
+
+# EDA
+
+Here we will be exploring and visualizing our data
+<br>
+<br>
+
+
+*First, we will exploring our data using `glimpse()` to see the dimensions of the dataset and the type of variables*
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+glimpse(Titanic_df)
+
+```
+
+<br>
+we see here that the dimensions of our data is 32 of rows and 5 cols, and all variables are factors type except for `n` which is an integer.
+
+<br>
+<br>
+
+*Lets also use `summary()` fo further explore the dataset*
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+summary(Titanic_df)
+```
+
+<br>
+<br>
+
+We see that the max `n` observations in this dataset is 670 for Male Crew Adults who didn't survive. The min is 0, which is shared by many rows like 1st class male child that didn't survive.
+
+<br>
+<br>
+
+---
+
+
+
+***Plotting***
+
+
+*Lets take a look at the distribution of our data by survival*
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+Titanic_df %>%
+  explore(Class, target = Survived, n = n, split = FALSE)
+```
+
+<br>
+<br>
+
+here we see the distribution of passengers and how many of them survived by class. 
+
+
+
+
+<br>
+<br>
+
+
+*Lets also check for survival by sex:*
+
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+Titanic_df %>% explore(Sex, target = Survived, n = n)
+```
+
+<br>
+<br>
+
+we can see that females have a very high survival percentage compared to males. 
+
+<br>
+<br>
+
+*lets also check for survival by age*
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+Titanic_df %>% explore(Age, target = Survived, n = n) 
+
+```
+
+<br>
+<br>
+
+it looks like children have better survival chance than adults
+<br>
+<br>
+
+*now lets check for class by age*
+
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+Titanic_df %>% explore(Age, target = Class, n = n)
+```
+
+<br>
+<br>
+we can see that very few children are first class, and all crew members are adults. And as we saw earlier, Crew class had low survival rate, which explain why children have better survival rate.
+
+<br>
+<br>
+Titanic_df %>% explore(Sex, target = Class, n = n)
+
+*Finally, lets check for class by sex*
+
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+Titanic_df %>% explore(Sex, target = Class, n = n)
+```
+
+<br>
+<br>
+there are very few female crew members, and females tend to have better Class, which might explain their high survival rate.
+<br>
+<br>
+
+---
+
+# Conclusion
+
+
+After exploring our data, it seems that class is the most important variable for surviving the Titanic, which makes sense as 1st class were offered life boats before other classes increasing their survival chance. 
+
+<br>
+<br>
+
+
