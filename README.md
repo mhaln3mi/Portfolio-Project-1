@@ -9,7 +9,7 @@ In this report we will be tryng to find relationships between survival rate and 
 
 ## Webpage
 
-The Webpage for this project can be found [here](https://mhaln3mi.github.io/Portfolio-Project-1/Report.html)
+The Webpage for this project can be found [here](https://mhaln3mi.github.io/Portfolio-Project-1//Report.html)
 
 ## Data 
 <br>
